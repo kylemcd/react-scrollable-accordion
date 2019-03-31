@@ -1,6 +1,6 @@
 {
   "name": "react-scrollable-accordion",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "A scrollable list/accordion component with sticky headers",
   "main": "dist/index.js",
   "scripts": {
