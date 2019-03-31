@@ -1,0 +1,12 @@
+.List {
+  box-sizing: border-box;
+  height: inherit;
+  margin: 0;
+  overflow: scroll;
+  padding: 0;
+}
+
+.Wrapper {
+  height: inherit;
+  position: relative;
+}
