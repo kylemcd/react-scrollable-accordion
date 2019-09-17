@@ -1,13 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import styles from "./ListItem.module.css";
+import styles from "./constants";
 
 const ListItem = ({ children, className, component: Component, ...other }) => (
-  <Component
-    className={[styles.ListItem, className].join(" ").trim()}
-    {...other}
-  >
+  <Component className={className} style={styles.ListItem} {...other}>
     {children}
   </Component>
 );

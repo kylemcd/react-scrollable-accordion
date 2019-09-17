@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useRef } from "react";
 
 import ListHeader from "./ListHeader";
-import styles from "./List.module.css";
+import styles from "./constants";
 
 const List = ({
   children,
@@ -53,11 +53,11 @@ const List = ({
     : children;
 
   return (
-    <div className={styles.Wrapper}>
+    <div style={styles.Wrapper}>
       <Component
-        className={[styles.List, className].join(" ").trim()}
+        className={className}
         ref={listRef}
-        style={{ scrollBehavior }}
+        style={{ ...styles.List, scrollBehavior }}
         {...other}
       >
         {nodes}

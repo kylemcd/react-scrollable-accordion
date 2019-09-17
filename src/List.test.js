@@ -7,7 +7,7 @@ import List from "./List";
 import ListHeader from "./ListHeader";
 import ListItem from "./ListItem";
 
-// Window height is 100px
+// Window height is 200px
 window.innerHeight = 200;
 
 // List item (li) height is 50px
@@ -54,17 +54,17 @@ test("should render a regular List", async () => {
 
   await wait(() => {
     const firstHeaderNode = getByText("Header 1");
+    const firstHeaderStyle = window.getComputedStyle(firstHeaderNode);
     expect(firstHeaderNode.parentElement.tagName).toBe("UL");
-    expect(firstHeaderNode.classList.length).toBe(1);
-    expect(firstHeaderNode.classList[0]).toBe("ListHeader");
+    expect(firstHeaderStyle.position).toBe("relative");
 
     const middleHeaderNode = getByText("Header 2");
-    expect(middleHeaderNode.classList.length).toBe(1);
-    expect(middleHeaderNode.classList[0]).toBe("ListHeader");
+    const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
+    expect(middleHeaderStyle.position).toBe("relative");
 
     const lastHeaderNode = getByText("Header 3");
-    expect(lastHeaderNode.classList.length).toBe(1);
-    expect(lastHeaderNode.classList[0]).toBe("ListHeader");
+    const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
+    expect(lastHeaderStyle.position).toBe("relative");
   });
 });
 
@@ -74,26 +74,25 @@ test("should render List with Header 1 on top, scrollable Header 2, Header 3 on 
       {listItems}
     </List>
   );
-  getByTestId("list").scrollTop = 75;
+  getByTestId("list").scrollTop = 49;
 
   await wait(() => {
     const firstHeaderNode = getByText("Header 1");
-    expect(firstHeaderNode.classList.length).toBe(2);
-    expect(firstHeaderNode.classList[0]).toBe("ListHeader");
-    expect(firstHeaderNode.classList[1]).toBe("sticky");
-    expect(firstHeaderNode.style.top).toBe("0px");
+    const firstHeaderStyle = window.getComputedStyle(firstHeaderNode);
+    expect(firstHeaderStyle.position).toBe("absolute");
+    expect(firstHeaderStyle.top).toBe("0px");
 
     const middleHeaderNode = getByText("Header 2");
-    expect(middleHeaderNode.classList.length).toBe(1);
-    expect(middleHeaderNode.classList[0]).toBe("ListHeader");
-    expect(middleHeaderNode.style.bottom).toBe("");
-    expect(middleHeaderNode.style.top).toBe("");
+    const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
+    expect(middleHeaderStyle.position).toBe("relative");
+    expect(middleHeaderStyle.bottom).toBeFalsy();
+    expect(middleHeaderStyle.top).toBeFalsy();
 
     const lastHeaderNode = getByText("Header 3");
-    expect(lastHeaderNode.classList.length).toBe(2);
-    expect(lastHeaderNode.classList[0]).toBe("ListHeader");
-    expect(lastHeaderNode.classList[1]).toBe("sticky");
-    expect(lastHeaderNode.style.bottom).toBe("0px");
+    const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
+    expect(lastHeaderStyle.position).toBe("absolute");
+    expect(lastHeaderStyle.bottom).toBe("0px");
+    expect(lastHeaderStyle.top).toBeFalsy();
   });
 });
 
@@ -103,26 +102,25 @@ test("should render List with Header 1 and Header 2 on top, Header 3 on bottom",
       {listItems}
     </List>
   );
-  getByTestId("list").scrollTop = 100;
+  getByTestId("list").scrollTop = 60;
 
   await wait(() => {
     const firstHeaderNode = getByText("Header 1");
-    expect(firstHeaderNode.classList.length).toBe(2);
-    expect(firstHeaderNode.classList[0]).toBe("ListHeader");
-    expect(firstHeaderNode.classList[1]).toBe("sticky");
-    expect(firstHeaderNode.style.top).toBe("0px");
+    const firstHeaderStyle = window.getComputedStyle(firstHeaderNode);
+    expect(firstHeaderStyle.position).toBe("absolute");
+    expect(firstHeaderStyle.top).toBe("0px");
 
     const middleHeaderNode = getByText("Header 2");
-    expect(middleHeaderNode.classList.length).toBe(2);
-    expect(middleHeaderNode.classList[0]).toBe("ListHeader");
-    expect(middleHeaderNode.classList[1]).toBe("sticky");
-    expect(middleHeaderNode.style.top).toBe("50px");
+    const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
+    expect(middleHeaderStyle.position).toBe("absolute");
+    expect(middleHeaderStyle.bottom).toBeFalsy();
+    expect(middleHeaderStyle.top).toBe("50px");
 
     const lastHeaderNode = getByText("Header 3");
-    expect(lastHeaderNode.classList.length).toBe(2);
-    expect(lastHeaderNode.classList[0]).toBe("ListHeader");
-    expect(lastHeaderNode.classList[1]).toBe("sticky");
-    expect(lastHeaderNode.style.bottom).toBe("0px");
+    const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
+    expect(lastHeaderStyle.position).toBe("absolute");
+    expect(lastHeaderStyle.bottom).toBe("0px");
+    expect(lastHeaderStyle.top).toBeFalsy();
   });
 });
 
@@ -133,29 +131,28 @@ test("should render List with Header 1, Header 2 and Header 3 on top", async () 
     </List>
   );
 
-  getByTestId("list").scrollTop = 200;
+  getByTestId("list").scrollTop = 100;
 
   await wait(() => {
     const firstHeaderNode = getByText("Header 1");
-    expect(firstHeaderNode.classList.length).toBe(2);
-    expect(firstHeaderNode.classList[0]).toBe("ListHeader");
-    expect(firstHeaderNode.classList[1]).toBe("sticky");
-    expect(firstHeaderNode.style.top).toBe("0px");
+    const firstHeaderStyle = window.getComputedStyle(firstHeaderNode);
+    expect(firstHeaderStyle.position).toBe("absolute");
+    expect(firstHeaderStyle.top).toBe("0px");
 
     const middleHeaderNode = getByText("Header 2");
-    expect(middleHeaderNode.classList.length).toBe(2);
-    expect(middleHeaderNode.classList[0]).toBe("ListHeader");
-    expect(middleHeaderNode.classList[1]).toBe("sticky");
-    expect(middleHeaderNode.style.top).toBe("50px");
+    const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
+    expect(middleHeaderStyle.position).toBe("absolute");
+    expect(middleHeaderStyle.bottom).toBeFalsy();
+    expect(middleHeaderStyle.top).toBe("50px");
 
     const lastHeaderNode = getByText("Header 3");
-    expect(lastHeaderNode.classList.length).toBe(2);
-    expect(lastHeaderNode.classList[0]).toBe("ListHeader");
-    expect(lastHeaderNode.classList[1]).toBe("sticky");
-    expect(lastHeaderNode.style.top).toBe("100px");
+    const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
+    expect(lastHeaderStyle.position).toBe("absolute");
+    expect(lastHeaderStyle.bottom).toBeFalsy();
+    expect(lastHeaderStyle.top).toBe("100px");
   });
 });
-
+//
 test("should render List with DIV wrapper element", () => {
   const { getByText } = render(
     <List className="test-classname" component="div" stickyHeaders>
@@ -166,7 +163,6 @@ test("should render List with DIV wrapper element", () => {
   const firstHeaderNode = getByText("Header 1");
   const listNode = firstHeaderNode.parentElement;
   expect(listNode.tagName).toBe("DIV");
-  expect(listNode.classList.length).toBe(2);
-  expect(listNode.classList[0]).toBe("List");
-  expect(listNode.classList[1]).toBe("test-classname");
+  expect(listNode.classList.length).toBe(1);
+  expect(listNode.classList[0]).toBe("test-classname");
 });

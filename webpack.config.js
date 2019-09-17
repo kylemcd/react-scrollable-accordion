@@ -9,19 +9,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader"
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: "style-loader" },
-          {
-            loader: "css-loader",
-            options: {
-              modules: true
-            }
-          }
-        ]
       }
     ]
   },
@@ -32,7 +19,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
     library: "react-scrollable-accordion",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
+    globalObject: "this"
   },
   externals: {
     react: "react"

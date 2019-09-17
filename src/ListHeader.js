@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 
-import styles from "./ListItem.module.css";
+import styles from "./constants";
 
 const ListHeader = ({
   addHeader,
@@ -20,21 +20,24 @@ const ListHeader = ({
   const handleScroll = useCallback(() => {
     const scroll = () => {
       if (
-        listRef.current.scrollTop + getStickedHeadersTotalHeight(0, index) >=
+        listRef.current.scrollTop +
+          getStickedHeadersTotalHeight(0, index) * 2 >=
         ref.current.initialOffsetTop
       ) {
-        ref.current.nextElementSibling.style.marginTop = ref.current.getBoundingClientRect().height;
+        ref.current.nextElementSibling.style.marginTop = `${
+          ref.current.getBoundingClientRect().height
+        }px`;
         setStickTo({
-          className: "sticky",
           styles: {
-            top: getStickedHeadersTotalHeight(0, index)
+            position: "absolute",
+            top: `${getStickedHeadersTotalHeight(0, index)}px`
           }
         });
       } else if (
         listRef.current.scrollTop +
           (listRef.current.offsetHeight -
             getStickedHeadersTotalHeight(index, getTotalHeaders())) <
-        ref.current.initialOffsetTop
+        ref.current.initialOffsetTop - getStickedHeadersTotalHeight(0, index)
       ) {
         if (ref.current.style.bottom) {
           return;
@@ -43,9 +46,12 @@ const ListHeader = ({
         ref.current.nextElementSibling.style.marginTop = 0;
 
         setStickTo({
-          className: "sticky",
           styles: {
-            bottom: getStickedHeadersTotalHeight(index + 1, getTotalHeaders())
+            bottom: `${getStickedHeadersTotalHeight(
+              index + 1,
+              getTotalHeaders()
+            )}px`,
+            position: "absolute"
           }
         });
       } else if (ref.current.style.bottom || ref.current.style.top) {
@@ -61,7 +67,7 @@ const ListHeader = ({
     const list = listRef.current;
     list.scrollTop =
       ref.current.initialOffsetTop -
-      getStickedHeadersTotalHeight(0, index) -
+      getStickedHeadersTotalHeight(0, index) * 2 -
       (getComputedStyle(listRef.current).scrollBehavior === "auto"
         ? getStickedHeadersTotalHeight(0, index, true)
         : 0);
@@ -71,6 +77,9 @@ const ListHeader = ({
     if (listRef) {
       addHeader(ref);
       ref.current.initialOffsetTop = ref.current.offsetTop;
+      ref.current.nextElementSibling.style.marginTop = `${
+        ref.current.getBoundingClientRect().height
+      }px`;
       handleScroll();
     }
   }, [addHeader, handleScroll, listRef]);
@@ -87,12 +96,13 @@ const ListHeader = ({
 
   return (
     <Component
-      className={[styles.ListHeader, className, styles[stickTo.className]]
-        .join(" ")
-        .trim()}
+      className={className}
       ref={ref}
       onClick={scrollTo}
-      style={stickTo.styles}
+      style={{
+        ...styles.ListHeader,
+        ...stickTo.styles
+      }}
       {...other}
     >
       {children}
@@ -108,7 +118,10 @@ ListHeader.propTypes = {
   getStickedHeadersTotalHeight: PropTypes.func,
   getTotalHeaders: PropTypes.func,
   index: PropTypes.number,
-  listRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  listRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any })
+  ])
 };
 
 ListHeader.defaultProps = {
