@@ -8,6 +8,7 @@
     "commit": "npx git-cz",
     "lint": "eslint 'src/**/*.js'",
     "semantic-release": "semantic-release",
+    "test:ci": "jest --ci",
     "test": "jest --watch"
   },
   "repository": {
