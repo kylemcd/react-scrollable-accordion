@@ -1,5 +1,8 @@
 # react-scrollable-accordion
 
+[![Travis build](https://img.shields.io/travis/andrii-maglovanyi/react-scrollable-accordion?style=flat-square)](https://travis-ci.org/andrii-maglovanyi/react-scrollable-accordion)
+![MIT License](https://img.shields.io/github/license/andrii-maglovanyi/react-scrollable-accordion)
+
 A basic HTML list, that allows you to define sticky list items, called headers, like this:
 
 ![React Scrollable Accordion](https://media.giphy.com/media/cNNwh9yFDzhZhceNEY/giphy.gif)
