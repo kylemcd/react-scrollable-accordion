@@ -113,7 +113,7 @@ Please make sure to update tests as appropriate.
 
 ## Sponsors
 
-![[BrowserStack](https://photos.app.goo.gl/nwrawQ3og76eU2zK6)](https://www.browserstack.com/)
+![[BrowserStack](https://i.ibb.co/TBz8xKk/Browserstack-logo-2x.png)](https://www.browserstack.com/)
 
 ## License
 
