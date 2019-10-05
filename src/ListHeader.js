@@ -11,8 +11,7 @@ const ListHeader = ({
   getStickedHeadersTotalHeight,
   getTotalHeaders,
   index,
-  listRef,
-  ...other
+  listRef
 }) => {
   const ref = useRef();
   const [stickTo, setStickTo] = useState({});
@@ -20,8 +19,7 @@ const ListHeader = ({
   const handleScroll = useCallback(() => {
     const scroll = () => {
       if (
-        listRef.current.scrollTop +
-          getStickedHeadersTotalHeight(0, index) * 2 >=
+        listRef.current.scrollTop + getStickedHeadersTotalHeight(0, index) >=
         ref.current.initialOffsetTop
       ) {
         ref.current.nextElementSibling.style.marginTop = `${
@@ -37,7 +35,7 @@ const ListHeader = ({
         listRef.current.scrollTop +
           (listRef.current.offsetHeight -
             getStickedHeadersTotalHeight(index, getTotalHeaders())) <
-        ref.current.initialOffsetTop - getStickedHeadersTotalHeight(0, index)
+        ref.current.initialOffsetTop
       ) {
         if (ref.current.style.bottom) {
           return;
@@ -66,21 +64,16 @@ const ListHeader = ({
   const scrollTo = () => {
     const list = listRef.current;
     list.scrollTop =
-      ref.current.initialOffsetTop -
-      getStickedHeadersTotalHeight(0, index) * 2 -
-      (getComputedStyle(listRef.current).scrollBehavior === "auto"
-        ? getStickedHeadersTotalHeight(0, index, true)
-        : 0);
+      ref.current.initialOffsetTop - getStickedHeadersTotalHeight(0, index);
   };
 
   useEffect(() => {
     if (listRef) {
       addHeader(ref);
-      ref.current.initialOffsetTop = ref.current.offsetTop;
-      ref.current.nextElementSibling.style.marginTop = `${
-        ref.current.getBoundingClientRect().height
-      }px`;
-      handleScroll();
+      setTimeout(() => {
+        ref.current.initialOffsetTop = ref.current.offsetTop;
+        handleScroll();
+      }, 200);
     }
   }, [addHeader, handleScroll, listRef]);
 
@@ -103,7 +96,6 @@ const ListHeader = ({
         ...styles.ListHeader,
         ...stickTo.styles
       }}
-      {...other}
     >
       {children}
     </Component>

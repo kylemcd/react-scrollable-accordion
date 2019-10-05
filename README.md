@@ -1,7 +1,7 @@
 # react-scrollable-accordion
 
 [![Travis build](https://img.shields.io/travis/andrii-maglovanyi/react-scrollable-accordion?style=flat-square)](https://travis-ci.org/andrii-maglovanyi/react-scrollable-accordion)
-![MIT License](https://img.shields.io/github/license/andrii-maglovanyi/react-scrollable-accordion)
+![MIT License](https://img.shields.io/github/license/andrii-maglovanyi/react-scrollable-accordion?style=flat-square)
 
 A basic HTML list, that allows you to define sticky list items, called headers, like this:
 
@@ -21,13 +21,29 @@ A basic list, which is almost no different from standard HTML list, although it 
 import { List, ListHeader, ListItem } from "../src";
 
 <List>
-  <ListHeader key={0}>Header 1</ListHeader>
+  <ListHeader key={0} className="Header">
+    Header 1
+  </ListHeader>
   <ListItem key={1}>Item 1</ListItem>
   <ListItem key={2}>Item 2</ListItem>
-  <ListHeader key={3}>Header 2</ListHeader>
+  <ListHeader key={3} className="Header">
+    Header 2
+  </ListHeader>
   <ListItem key={4}>Item 3</ListItem>
   <ListItem key={5}>Item 4</ListItem>
 </List>;
+```
+
+For starters, you can apply this minimal styling:
+
+```css
+.Header {
+  background-color: white;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  padding: 2px 0;
+}
 ```
 
 To convert it to accordion, pass **stickyHeaders** property to the _List_ element:
@@ -94,6 +110,10 @@ Read more about [scroll-behavior](https://developer.mozilla.org/en-US/docs/Web/C
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Sponsors
+
+![[BrowserStack](https://photos.app.goo.gl/nwrawQ3og76eU2zK6)](https://www.browserstack.com/)
 
 ## License
 

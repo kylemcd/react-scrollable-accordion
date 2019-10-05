@@ -1,10 +1,4 @@
-const ListItem = {
-  alignItems: "center",
-  boxSizing: "border-box",
-  display: "block"
-};
-
-const styles = {
+export default {
   List: {
     boxSizing: "border-box",
     height: "inherit",
@@ -14,18 +8,10 @@ const styles = {
     padding: 0
   },
   ListHeader: {
-    ...ListItem,
-    height: "auto",
-    margin: 0,
-    position: "relative",
-    width: "100%",
-    zIndex: 1
+    position: "relative"
   },
-  ListItem,
   Wrapper: {
     height: "inherit",
     position: "relative"
   }
 };
-
-export default styles;

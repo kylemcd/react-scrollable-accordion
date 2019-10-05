@@ -1,6 +1,6 @@
 {
   "name": "react-scrollable-accordion",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "A scrollable list/accordion component with sticky headers",
   "main": "dist/index.js",
   "scripts": {
@@ -30,35 +30,36 @@
     "url": "https://github.com/andrii-maglovanyi/react-scrollable-accordion/issues"
   },
   "homepage": "https://github.com/andrii-maglovanyi/react-scrollable-accordion#readme",
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@testing-library/jest-dom": "^4.1.0",
-    "@testing-library/react": "^9.1.4",
+    "@testing-library/react": "^9.3.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.3.0",
+    "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.0.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
-    "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "semantic-release": "^15.13.24",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
   },
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^16.10.2"
   },
   "config": {
     "commitizen": {

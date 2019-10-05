@@ -9,8 +9,7 @@ const List = ({
   className,
   component: Component,
   scrollBehavior,
-  stickyHeaders,
-  ...other
+  stickyHeaders
 }) => {
   const listRef = useRef();
   let index = 0;
@@ -58,7 +57,6 @@ const List = ({
         className={className}
         ref={listRef}
         style={{ ...styles.List, scrollBehavior }}
-        {...other}
       >
         {nodes}
       </Component>
