@@ -7,6 +7,10 @@ A basic HTML list, that allows you to define sticky list items, called headers, 
 
 ![React Scrollable Accordion](https://media.giphy.com/media/cNNwh9yFDzhZhceNEY/giphy.gif)
 
+The purpose of this package is to provide a cross-browser alternative to the `position: sticky` [CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/position) with some improvements like scrolling the list to the beginning of section when clicking on the header;
+
+A `stickily` positioned header is an element whose computed position value is sticky. It's treated as relatively positioned until the container it scrolls within crosses a specified threshold (the edge of the containing block, or previous/next header), at which point it is treated as fixed until meeting the opposite boundary.
+
 ## Install
 
 ```bash
