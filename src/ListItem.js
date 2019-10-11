@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const ListItem = ({ children, className, component: Component }) => (
-  <Component className={className}>{children}</Component>
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <Component {...(className ? { className } : {})}>{children}</Component>
 );
 
 ListItem.propTypes = {

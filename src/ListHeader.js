@@ -89,7 +89,8 @@ const ListHeader = ({
 
   return (
     <Component
-      className={className}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...(className ? { className } : {})}
       ref={ref}
       onClick={scrollTo}
       style={{

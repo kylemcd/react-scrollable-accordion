@@ -54,7 +54,8 @@ const List = ({
   return (
     <div style={styles.Wrapper}>
       <Component
-        className={className}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...(className ? { className } : {})}
         ref={listRef}
         style={{ ...styles.List, scrollBehavior }}
       >
