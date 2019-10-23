@@ -17,7 +17,13 @@ A `stickily` positioned header is an element whose computed position value is st
 npm install react-scrollable-accordion
 ```
 
-## Usage
+## Prerequisites
+
+[React v16.8.0](https://github.com/facebook/react/releases/tag/v16.8.0) and up since I'm very fancy of hooks.
+
+## Getting Started
+
+Please find here the **[Live Example](https://codesandbox.io/s/react-scrollable-accordion-bbtis?fontsize=14)**.
 
 A basic list, which is almost no different from standard HTML list, although it has no visible bullet points:
 
@@ -108,6 +114,8 @@ import { List, ListHeader, ListItem } from "../src";
 ```
 
 Read more about [scroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) property.
+
+## Requierements
 
 ## Contributing
 
