@@ -115,8 +115,6 @@ import { List, ListHeader, ListItem } from "../src";
 
 Read more about [scroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior) property.
 
-## Requierements
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
