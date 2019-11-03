@@ -8,6 +8,7 @@ const List = ({
   children,
   className,
   component: Component,
+  label,
   scrollBehavior,
   stickyHeaders
 }) => {
@@ -54,10 +55,14 @@ const List = ({
   return (
     <div style={styles.Wrapper}>
       <Component
-        // eslint-disable-next-line react/jsx-props-no-spreading
+        /* eslint-disable react/jsx-props-no-spreading */
+        {...(label ? { "aria-label": label } : {})}
         {...(className ? { className } : {})}
+        /* eslint-enable react/jsx-props-no-spreading */
         ref={listRef}
+        role="list"
         style={{ ...styles.List, scrollBehavior }}
+        tabIndex="0"
       >
         {nodes}
       </Component>
@@ -69,6 +74,7 @@ List.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   component: PropTypes.string,
+  label: PropTypes.string,
   scrollBehavior: PropTypes.oneOf(["auto", "smooth"]),
   stickyHeaders: PropTypes.bool
 };
@@ -77,6 +83,7 @@ List.defaultProps = {
   children: [],
   className: "",
   component: "ul",
+  label: "",
   scrollBehavior: "auto",
   stickyHeaders: false
 };

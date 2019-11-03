@@ -89,10 +89,12 @@ const ListHeader = ({
 
   return (
     <Component
+      aria-level="1"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...(className ? { className } : {})}
       ref={ref}
       onClick={scrollTo}
+      role="listitem"
       style={{
         ...styles.ListHeader,
         ...stickTo.styles
