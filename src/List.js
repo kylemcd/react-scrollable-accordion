@@ -1,20 +1,35 @@
 import PropTypes from "prop-types";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import ListHeader from "./ListHeader";
 import styles from "./constants";
 
+/**
+ * The list with scrolling and a wrapper
+ *
+ * @param {({
+ *  children: [Node] | Node,
+ *  className?: string,
+ *  component?: string,
+ *  label?: string,
+ *  scrollBehavior?: "auto" | "smooth",
+ *  stickyHeaders?: boolean,
+ *  stickTo?: "all" | "bottom" | "top",
+ * })} props
+ */
 const List = ({
   children,
   className,
   component: Component,
   label,
   scrollBehavior,
-  stickyHeaders
+  stickyHeaders,
+  stickTo
 }) => {
   const listRef = useRef();
   let index = 0;
   const headers = [];
+  const [ready, setReady] = useState(false);
 
   const getStickedHeadersTotalHeight = (start, end, align) =>
     headers.slice(start, end).reduce((acc, header) => {
@@ -29,7 +44,13 @@ const List = ({
       return acc + header.current.getBoundingClientRect().height;
     }, 0);
 
-  const addHeader = ref => headers.push(ref);
+  const addHeader = ref => {
+    headers.push(ref);
+    if (index === headers.length) {
+      // ugly, but helps to deal with SSR glitches in Safari
+      setTimeout(() => setReady(true), 200);
+    }
+  };
 
   const getTotalHeaders = () => headers.length;
 
@@ -40,8 +61,10 @@ const List = ({
             addHeader,
             getStickedHeadersTotalHeight,
             getTotalHeaders,
+            index,
             listRef,
-            index
+            ready,
+            stickTo
           });
 
           index += 1;
@@ -71,21 +94,31 @@ const List = ({
 };
 
 List.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
   className: PropTypes.string,
   component: PropTypes.string,
   label: PropTypes.string,
   scrollBehavior: PropTypes.oneOf(["auto", "smooth"]),
-  stickyHeaders: PropTypes.bool
+  stickyHeaders: PropTypes.bool,
+  stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
 
 List.defaultProps = {
-  children: [],
+  /** Optional class name for the list component */
   className: "",
+  /** Default HTML tag name for the list */
   component: "ul",
+  /** Optional ARIA label value */
   label: "",
+  /** Sets the behavior for a scrolling box ("auto", "smooth") */
   scrollBehavior: "auto",
-  stickyHeaders: false
+  /** Whether the header items should stick to top/bottom edges of the list */
+  stickyHeaders: false,
+  /** Whether headers shouhld stick to bottom/top only, or to both sides */
+  stickTo: "all"
 };
 
 export default List;

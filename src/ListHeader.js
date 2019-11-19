@@ -1,5 +1,11 @@
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useState, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useRef
+} from "react";
 
 import styles from "./constants";
 
@@ -11,7 +17,9 @@ const ListHeader = ({
   getStickedHeadersTotalHeight,
   getTotalHeaders,
   index,
-  listRef
+  listRef,
+  ready,
+  stickTo: to
 }) => {
   const ref = useRef();
   const [stickTo, setStickTo] = useState({});
@@ -19,8 +27,9 @@ const ListHeader = ({
   const handleScroll = useCallback(() => {
     const scroll = () => {
       if (
+        ["all", "top"].includes(to) &&
         listRef.current.scrollTop + getStickedHeadersTotalHeight(0, index) >=
-        ref.current.initialOffsetTop
+          ref.current.initialOffsetTop
       ) {
         ref.current.nextElementSibling.style.marginTop = `${
           ref.current.getBoundingClientRect().height
@@ -32,10 +41,11 @@ const ListHeader = ({
           }
         });
       } else if (
+        ["all", "bottom"].includes(to) &&
         listRef.current.scrollTop +
           (listRef.current.offsetHeight -
             getStickedHeadersTotalHeight(index, getTotalHeaders())) <
-        ref.current.initialOffsetTop
+          ref.current.initialOffsetTop
       ) {
         if (ref.current.style.bottom) {
           return;
@@ -59,7 +69,7 @@ const ListHeader = ({
     };
     const rafId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(rafId);
-  }, [getStickedHeadersTotalHeight, getTotalHeaders, index, listRef]);
+  }, [getStickedHeadersTotalHeight, getTotalHeaders, index, listRef, to]);
 
   const scrollTo = () => {
     const list = listRef.current;
@@ -67,15 +77,16 @@ const ListHeader = ({
       ref.current.initialOffsetTop - getStickedHeadersTotalHeight(0, index);
   };
 
-  useEffect(() => {
-    if (listRef) {
+  useLayoutEffect(() => {
+    if (listRef && ref.current) {
       addHeader(ref);
-      setTimeout(() => {
+
+      if (ready) {
         ref.current.initialOffsetTop = ref.current.offsetTop;
         handleScroll();
-      }, 200);
+      }
     }
-  }, [addHeader, handleScroll, listRef]);
+  }, [addHeader, handleScroll, listRef, ready]);
 
   useEffect(() => {
     if (listRef) {
@@ -116,18 +127,28 @@ ListHeader.propTypes = {
   listRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any })
-  ])
+  ]),
+  ready: PropTypes.bool,
+  stickTo: "all"
 };
 
 ListHeader.defaultProps = {
+  /** Add current header to the stack of list headers */
   addHeader: () => {},
+  /** List items */
   children: [],
+  /** Optional class name for the list component */
   className: "",
+  /** Default HTML tag name for the list item */
   component: "li",
+  /** Calculate the total height of specified range of headers in the stack */
   getStickedHeadersTotalHeight: () => {},
+  /** Get total amount of headers in stack */
   getTotalHeaders: () => {},
   index: 0,
-  listRef: null
+  listRef: null,
+  ready: false,
+  stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
 
 export default ListHeader;

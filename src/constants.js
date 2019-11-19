@@ -3,7 +3,6 @@ export default {
     boxSizing: "border-box",
     height: "inherit",
     margin: 0,
-    overflowX: "hidden",
     overflowY: "scroll",
     padding: 0
   },
@@ -12,6 +11,7 @@ export default {
   },
   Wrapper: {
     height: "inherit",
+    overflowX: "hidden",
     position: "relative"
   }
 };
