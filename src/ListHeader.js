@@ -9,6 +9,17 @@ import React, {
 
 import styles from "./constants";
 
+/**
+ * ListHeader is an optionally sticky list element
+ * @param {({
+ *  children?: [React.ReactNode] | React.ReactNode,
+ *  className?: string,
+ *  component?: string,
+ *  stickTo?: "all" | "bottom" | "top",
+ * })} props
+ *
+ * @returns {React.ReactNode}
+ */
 const ListHeader = ({
   addHeader,
   children,
@@ -117,37 +128,35 @@ const ListHeader = ({
 };
 
 ListHeader.propTypes = {
-  addHeader: PropTypes.func,
+  /** Add current header to the stack of list headers */
+  addHeader: PropTypes.func.isRequired,
+  /** List header children */
   children: PropTypes.node,
+  /** Optional class name for the ListHeader component */
   className: PropTypes.string,
+  /** Default HTML tag name for the ListHeader component */
   component: PropTypes.string,
-  getStickedHeadersTotalHeight: PropTypes.func,
-  getTotalHeaders: PropTypes.func,
-  index: PropTypes.number,
+  /** Calculate the total height of specified range of headers in the stack */
+  getStickedHeadersTotalHeight: PropTypes.func.isRequired,
+  /** Get total amount of headers in stack */
+  getTotalHeaders: PropTypes.func.isRequired,
+  /** Current index of ListHeader in the stack */
+  index: PropTypes.number.isRequired,
+  /** Reference to the List component */
   listRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any })
-  ]),
-  ready: PropTypes.bool,
+  ]).isRequired,
+  /** Indicator that all headers finished DOM mutations */
+  ready: PropTypes.bool.isRequired,
+  /** Whether headers should stick to bottom/top only, or to both sides */
   stickTo: "all"
 };
 
 ListHeader.defaultProps = {
-  /** Add current header to the stack of list headers */
-  addHeader: () => {},
-  /** List items */
   children: [],
-  /** Optional class name for the list component */
   className: "",
-  /** Default HTML tag name for the list item */
   component: "li",
-  /** Calculate the total height of specified range of headers in the stack */
-  getStickedHeadersTotalHeight: () => {},
-  /** Get total amount of headers in stack */
-  getTotalHeaders: () => {},
-  index: 0,
-  listRef: null,
-  ready: false,
   stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
 

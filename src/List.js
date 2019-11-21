@@ -6,9 +6,8 @@ import styles from "./constants";
 
 /**
  * The list with scrolling and a wrapper
- *
  * @param {({
- *  children: [Node] | Node,
+ *  children: [React.ReactNode] | React.ReactNode,
  *  className?: string,
  *  component?: string,
  *  label?: string,
@@ -16,6 +15,8 @@ import styles from "./constants";
  *  stickyHeaders?: boolean,
  *  stickTo?: "all" | "bottom" | "top",
  * })} props
+ *
+ * @returns {React.ReactNode}
  */
 const List = ({
   children,
@@ -94,30 +95,31 @@ const List = ({
 };
 
 List.propTypes = {
+  /** List items */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
+  /** Optional class name for the List component */
   className: PropTypes.string,
+  /** Default HTML tag name for the list */
   component: PropTypes.string,
+  /** Optional ARIA label value */
   label: PropTypes.string,
+  /** Sets the behavior for a scrolling box ("auto", "smooth") */
   scrollBehavior: PropTypes.oneOf(["auto", "smooth"]),
+  /** Whether the header items should stick to top/bottom edges of the list */
   stickyHeaders: PropTypes.bool,
+  /** Whether headers should stick to bottom/top only, or to both sides */
   stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
 
 List.defaultProps = {
-  /** Optional class name for the list component */
   className: "",
-  /** Default HTML tag name for the list */
   component: "ul",
-  /** Optional ARIA label value */
   label: "",
-  /** Sets the behavior for a scrolling box ("auto", "smooth") */
   scrollBehavior: "auto",
-  /** Whether the header items should stick to top/bottom edges of the list */
   stickyHeaders: false,
-  /** Whether headers shouhld stick to bottom/top only, or to both sides */
   stickTo: "all"
 };
 

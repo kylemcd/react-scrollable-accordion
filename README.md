@@ -1,4 +1,6 @@
-# react-scrollable-accordion
+<h1 align="center">
+    [:||||||||||||:] React Scrollable Accordion
+</h1>
 
 [![Travis build](https://img.shields.io/travis/andrii-maglovanyi/react-scrollable-accordion?style=flat-square)](https://travis-ci.org/andrii-maglovanyi/react-scrollable-accordion)
 ![MIT License](https://img.shields.io/github/license/andrii-maglovanyi/react-scrollable-accordion?style=flat-square)
@@ -123,6 +125,17 @@ Please make sure to update tests as appropriate.
 
 ## Sponsors
 
+These services support me by providing free infrastructure.
+
+<a href="https://www.travis-ci.org">
+  <img
+    height="43"
+    width="137"
+    alt="TravisCI"
+    src="https://i.imgur.com/2TsiEii.png"
+  />
+</a>
+<img src="https://spacergif.org/spacer.gif" width="20"/>
 <a href="https://www.browserstack.com/">
   <img
     height="43"

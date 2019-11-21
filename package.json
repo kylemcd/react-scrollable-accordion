@@ -3,11 +3,12 @@
   "version": "0.0.0-development",
   "description": "A scrollable list/accordion component with sticky headers",
   "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "files": [
     "dist/index.js"
   ],
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack && tsc",
     "commit": "npx git-cz",
     "lint": "eslint 'src/**/*.js'",
     "semantic-release": "semantic-release",
@@ -58,6 +59,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "semantic-release": "^15.13.31",
+    "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   },
