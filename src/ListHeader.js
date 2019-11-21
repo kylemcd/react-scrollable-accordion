@@ -30,29 +30,29 @@ const ListHeader = ({
   index,
   listRef,
   ready,
-  stickTo: to
+  stickTo
 }) => {
   const ref = useRef();
-  const [stickTo, setStickTo] = useState({});
+  const [stickAt, setStickAt] = useState({});
 
   const handleScroll = useCallback(() => {
     const scroll = () => {
       if (
-        ["all", "top"].includes(to) &&
+        ["all", "top"].includes(stickTo) &&
         listRef.current.scrollTop + getStickedHeadersTotalHeight(0, index) >=
           ref.current.initialOffsetTop
       ) {
         ref.current.nextElementSibling.style.marginTop = `${
           ref.current.getBoundingClientRect().height
         }px`;
-        setStickTo({
+        setStickAt({
           styles: {
             position: "absolute",
             top: `${getStickedHeadersTotalHeight(0, index)}px`
           }
         });
       } else if (
-        ["all", "bottom"].includes(to) &&
+        ["all", "bottom"].includes(stickTo) &&
         listRef.current.scrollTop +
           (listRef.current.offsetHeight -
             getStickedHeadersTotalHeight(index, getTotalHeaders())) <
@@ -64,7 +64,7 @@ const ListHeader = ({
 
         ref.current.nextElementSibling.style.marginTop = 0;
 
-        setStickTo({
+        setStickAt({
           styles: {
             bottom: `${getStickedHeadersTotalHeight(
               index + 1,
@@ -75,12 +75,12 @@ const ListHeader = ({
         });
       } else if (ref.current.style.bottom || ref.current.style.top) {
         ref.current.nextElementSibling.style.marginTop = 0;
-        setStickTo({});
+        setStickAt({});
       }
     };
     const rafId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(rafId);
-  }, [getStickedHeadersTotalHeight, getTotalHeaders, index, listRef, to]);
+  }, [getStickedHeadersTotalHeight, getTotalHeaders, index, listRef, stickTo]);
 
   const scrollTo = () => {
     const list = listRef.current;
@@ -119,7 +119,7 @@ const ListHeader = ({
       role="listitem"
       style={{
         ...styles.ListHeader,
-        ...stickTo.styles
+        ...stickAt.styles
       }}
     >
       {children}
@@ -129,7 +129,7 @@ const ListHeader = ({
 
 ListHeader.propTypes = {
   /** Add current header to the stack of list headers */
-  addHeader: PropTypes.func.isRequired,
+  addHeader: PropTypes.func,
   /** List header children */
   children: PropTypes.node,
   /** Optional class name for the ListHeader component */
@@ -137,27 +137,33 @@ ListHeader.propTypes = {
   /** Default HTML tag name for the ListHeader component */
   component: PropTypes.string,
   /** Calculate the total height of specified range of headers in the stack */
-  getStickedHeadersTotalHeight: PropTypes.func.isRequired,
+  getStickedHeadersTotalHeight: PropTypes.func,
   /** Get total amount of headers in stack */
-  getTotalHeaders: PropTypes.func.isRequired,
+  getTotalHeaders: PropTypes.func,
   /** Current index of ListHeader in the stack */
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   /** Reference to the List component */
   listRef: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any })
-  ]).isRequired,
+  ]),
   /** Indicator that all headers finished DOM mutations */
-  ready: PropTypes.bool.isRequired,
+  ready: PropTypes.bool,
   /** Whether headers should stick to bottom/top only, or to both sides */
-  stickTo: "all"
+  stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
 
 ListHeader.defaultProps = {
+  addHeader: () => {},
   children: [],
   className: "",
   component: "li",
-  stickTo: PropTypes.oneOf(["all", "bottom", "top"])
+  getStickedHeadersTotalHeight: () => {},
+  getTotalHeaders: () => {},
+  index: 0,
+  listRef: null,
+  ready: false,
+  stickTo: "all"
 };
 
 export default ListHeader;
