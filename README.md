@@ -36,7 +36,7 @@ Please find here the **[Live Example](https://codesandbox.io/s/react-scrollable-
 A basic list, which is almost no different from standard HTML list, although it has no visible bullet points:
 
 ```jsx
-import { List, ListHeader, ListItem } from "../src";
+import { List, ListHeader, ListItem } from "react-scrollable-accordion";
 
 <List>
   <ListHeader key={0} className="Header">
@@ -73,7 +73,7 @@ You are free to provide custom CSS classes to a **className** property to all _L
 To convert it to accordion, pass **stickyHeaders** property to the _List_ element:
 
 ```jsx
-import { List, ListHeader, ListItem } from "../src";
+import { List, ListHeader, ListItem } from "react-scrollable-accordion";
 
 <List stickyHeaders>
   <ListHeader key={0}>Header 1</ListHeader>
@@ -88,7 +88,7 @@ import { List, ListHeader, ListItem } from "../src";
 You can customize the layout by passing a string to use a DOM element via _component_ property as we all as providing _CSS_ class with _className_ property:
 
 ```jsx
-import { List, ListHeader, ListItem } from "../src";
+import { List, ListHeader, ListItem } from "react-scrollable-accordion";
 
 <List component="div" className="accordion" stickyHeaders>
   <ListHeader component="div" className="list-header" key={0}>

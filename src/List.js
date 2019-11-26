@@ -32,18 +32,13 @@ const List = ({
   const headers = [];
   const [ready, setReady] = useState(false);
 
-  const getStickedHeadersTotalHeight = (start, end, align) =>
-    headers.slice(start, end).reduce((acc, header) => {
-      if (align) {
-        return (
-          acc +
-          (header.current.style.top
-            ? 0
-            : header.current.getBoundingClientRect().height)
-        );
-      }
-      return acc + header.current.getBoundingClientRect().height;
-    }, 0);
+  const getStickedHeadersTotalHeight = (start, end) =>
+    headers
+      .slice(start, end)
+      .reduce(
+        (acc, header) => acc + header.current.getBoundingClientRect().height,
+        0
+      );
 
   const addHeader = ref => {
     headers.push(ref);
