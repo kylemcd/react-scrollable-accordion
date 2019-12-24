@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -15,6 +16,7 @@ module.exports = {
   resolve: {
     extensions: ["*", ".js"]
   },
+  plugins: [new CopyPlugin([{ from: "src/styles.css", to: "./styles.css" }])],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
