@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "files": [
-    "dist/index.js"
+    "dist/"
   ],
   "scripts": {
     "build": "NODE_ENV=production webpack && tsc",
