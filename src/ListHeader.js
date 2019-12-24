@@ -1,11 +1,5 @@
 import PropTypes from "prop-types";
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-  useRef
-} from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 
 import styles from "./constants";
 
@@ -29,7 +23,6 @@ const ListHeader = ({
   getTotalHeaders,
   index,
   listRef,
-  ready,
   stickTo
 }) => {
   const ref = useRef();
@@ -37,6 +30,10 @@ const ListHeader = ({
 
   const handleScroll = useCallback(() => {
     const scroll = () => {
+      if (!listRef.current) {
+        return;
+      }
+
       if (
         ["all", "top"].includes(stickTo) &&
         listRef.current.scrollTop + getStickedHeadersTotalHeight(0, index) >=
@@ -88,16 +85,19 @@ const ListHeader = ({
       ref.current.initialOffsetTop - getStickedHeadersTotalHeight(0, index);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (listRef && ref.current) {
       addHeader(ref);
 
-      if (ready) {
-        ref.current.initialOffsetTop = ref.current.offsetTop;
-        handleScroll();
-      }
+      setStickAt({
+        reset: true,
+        styles: {
+          margin: "initial",
+          padding: "initial"
+        }
+      });
     }
-  }, [addHeader, handleScroll, listRef, ready]);
+  }, [addHeader, handleScroll, listRef]);
 
   useEffect(() => {
     if (listRef) {
@@ -108,6 +108,15 @@ const ListHeader = ({
 
     return () => {};
   }, [handleScroll, listRef]);
+
+  useEffect(() => {
+    if (stickAt.reset) {
+      ref.current.style = { ...ref.current.style, ...stickAt.styles };
+      ref.current.initialOffsetTop =
+        ref.current.offsetTop - getStickedHeadersTotalHeight(0, index);
+      handleScroll();
+    }
+  }, [getStickedHeadersTotalHeight, handleScroll, index, stickAt]);
 
   return (
     <Component
@@ -147,8 +156,6 @@ ListHeader.propTypes = {
     PropTypes.func,
     PropTypes.shape({ current: PropTypes.any })
   ]),
-  /** Indicator that all headers finished DOM mutations */
-  ready: PropTypes.bool,
   /** Whether headers should stick to bottom/top only, or to both sides */
   stickTo: PropTypes.oneOf(["all", "bottom", "top"])
 };
@@ -162,7 +169,6 @@ ListHeader.defaultProps = {
   getTotalHeaders: () => {},
   index: 0,
   listRef: null,
-  ready: false,
   stickTo: "all"
 };
 

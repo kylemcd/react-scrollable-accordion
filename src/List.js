@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import ListHeader from "./ListHeader";
 import styles from "./constants";
@@ -30,7 +30,6 @@ const List = ({
   const listRef = useRef();
   let index = 0;
   const headers = [];
-  const [ready, setReady] = useState(false);
 
   const getStickedHeadersTotalHeight = (start, end) =>
     headers
@@ -42,10 +41,6 @@ const List = ({
 
   const addHeader = ref => {
     headers.push(ref);
-    if (index === headers.length) {
-      // ugly, but helps to deal with SSR glitches in Safari
-      setTimeout(() => setReady(true), 200);
-    }
   };
 
   const getTotalHeaders = () => headers.length;
@@ -59,7 +54,6 @@ const List = ({
             getTotalHeaders,
             index,
             listRef,
-            ready,
             stickTo
           });
 

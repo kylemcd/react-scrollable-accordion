@@ -10,8 +10,8 @@ import ListItem from "./ListItem";
 // Window height is 120px
 window.innerHeight = 120;
 
-// List item (li) height is 21px
-const itemHeight = 21;
+// List item (li) height is 30px
+const itemHeight = 30;
 
 const listItems = [
   <ListHeader key={0}>Header 1</ListHeader>,
@@ -100,7 +100,7 @@ test("should render List with Header 1 on top, Header 2 and Header 3 on bottom",
     const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
 
     expect(middleHeaderStyle.position).toBe("absolute");
-    expect(middleHeaderStyle.bottom).toBe("21px");
+    expect(middleHeaderStyle.bottom).toBe("30px");
     expect(middleHeaderStyle.top).toBeFalsy();
 
     const lastHeaderNode = getByText("Header 3");
@@ -127,7 +127,7 @@ test("should render List with Header 1 on top, scrollable Header 2, Header 3 on 
     const middleHeaderNode = getByText("Header 2");
     const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
 
-    expect(middleHeaderStyle.position).toBe("relative");
+    expect(middleHeaderStyle.position).toBe("");
     expect(middleHeaderStyle.bottom).toBeFalsy();
     expect(middleHeaderStyle.top).toBeFalsy();
 
@@ -155,7 +155,7 @@ test("should render List with Header 1 and Header 2 on top, Header 3 on bottom",
     const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
     expect(middleHeaderStyle.position).toBe("absolute");
     expect(middleHeaderStyle.bottom).toBeFalsy();
-    expect(middleHeaderStyle.top).toBe("21px");
+    expect(middleHeaderStyle.top).toBe("30px");
 
     const lastHeaderNode = getByText("Header 3");
     const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
@@ -180,11 +180,11 @@ test("should render List with Header 1 and Header 2 on top, scrollable Header 3"
     const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
     expect(middleHeaderStyle.position).toBe("absolute");
     expect(middleHeaderStyle.bottom).toBeFalsy();
-    expect(middleHeaderStyle.top).toBe("21px");
+    expect(middleHeaderStyle.top).toBe("30px");
 
     const lastHeaderNode = getByText("Header 3");
     const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
-    expect(lastHeaderStyle.position).toBe("relative");
+    expect(lastHeaderStyle.position).toBe("");
     expect(lastHeaderStyle.bottom).toBeFalsy();
     expect(lastHeaderStyle.top).toBeFalsy();
   });
@@ -205,13 +205,13 @@ test("should render List with Header 1, Header 2 and Header 3 on top", async () 
     const middleHeaderStyle = window.getComputedStyle(middleHeaderNode);
     expect(middleHeaderStyle.position).toBe("absolute");
     expect(middleHeaderStyle.bottom).toBeFalsy();
-    expect(middleHeaderStyle.top).toBe("21px");
+    expect(middleHeaderStyle.top).toBe("30px");
 
     const lastHeaderNode = getByText("Header 3");
     const lastHeaderStyle = window.getComputedStyle(lastHeaderNode);
     expect(lastHeaderStyle.position).toBe("absolute");
     expect(lastHeaderStyle.bottom).toBeFalsy();
-    expect(lastHeaderStyle.top).toBe("42px");
+    expect(lastHeaderStyle.top).toBe("60px");
   });
 });
 
