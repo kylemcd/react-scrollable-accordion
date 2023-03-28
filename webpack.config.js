@@ -9,22 +9,26 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
-      }
-    ]
+        loader: "babel-loader",
+      },
+    ],
   },
   resolve: {
-    extensions: ["*", ".js"]
+    extensions: ["*", ".js"],
   },
-  plugins: [new CopyPlugin([{ from: "src/styles.css", to: "./styles.css" }])],
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: "src/styles.css", to: "./styles.css" }],
+    }),
+  ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
     library: "react-scrollable-accordion",
     libraryTarget: "umd",
-    globalObject: "this"
+    globalObject: "this",
   },
   externals: {
-    react: "react"
-  }
+    react: "react",
+  },
 };
